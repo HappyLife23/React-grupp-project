@@ -34,11 +34,11 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
         background: taskColor ? taskColor : '#d5d5d5',
     }
 
-    const handleDeleteColumn = () => {
+    const handleDeleteColumn = (id) => {
         const isConfirmed = window.confirm("Are you sure you want to delete this column?");
         if (isConfirmed) {
             setTimeout(() => {
-                dispatch(deleteColumnHandler(column));
+                dispatch(deleteColumnHandler(id));
             }, 300);
         }
     }

@@ -148,8 +148,8 @@ const Colums = () => {
   <div id='columnMainContainer' ref={mainSection}>
     <div className="columnContainer">
       {columns.map(column =>
-      (columnPath === column || columnPath === null) &&
-      <Column key={column} column={column} tasks={tasks} handleMouseDown={handleMouseDown} />
+      (columnPath === column.title || columnPath === null) &&
+      <Column key={column.id} column={column} tasks={tasks} handleMouseDown={handleMouseDown} />
       )}
 
       {(columnPath === null || columnPath === 'Done') &&

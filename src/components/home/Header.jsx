@@ -79,7 +79,7 @@ const Header = () => {
                     {columns.map((column, index) => (
                         <li style={{...headerTextStyle, color: activeIndex === index + 1 ? 'blue' : 'black'}}
                             key={index} onClick={
-                                (e) => handleListClick(e, column, index + 1)}>{column}</li>
+                                (e) => handleListClick(e, column.title, index + 1)}>{column.title}</li>
                     ))}
                     <li style={{...headerTextStyle, color: activeIndex === columns.length + 1 ? 'blue' : 'black'}} onClick={
                         (e) => handleListClick(e, 'Done', columns.length + 1)}> Done </li>

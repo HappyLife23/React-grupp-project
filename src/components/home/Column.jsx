@@ -1,11 +1,12 @@
 import { useState } from "react";
 import propTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteColumnHandler } from "../../features/columnSlice";
+import { deleteColumnHandler, updateColumnName } from "../../features/columnSlice";
 import Task from "./Task";
 
 const Column = ({ column, tasks,  handleMouseDown }) => {
     const [deleteColumn, setDeleteColumn] = useState(false);
+    const [editableColumnTitle, setEditableColumnTitle] = useState(false);
     const dispatch = useDispatch();
     // Stored style by settings
     const style = useSelector(state => state.settings.tasks);
@@ -33,9 +34,9 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
         background: taskColor ? taskColor : '#d5d5d5',
     }
 
-    const handleDeleteColumn = () => {
+    const handleDeleteColumn = (id) => {
         setTimeout(() => {
-            dispatch(deleteColumnHandler(column));
+            dispatch(deleteColumnHandler(id));
         }, 300);
     }
 
@@ -48,15 +49,24 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
     }
 
     return (
-        <div className='column' title={column}
+        <div className='column' title={column.title}
         style={{
             ...storedStyle,
             ...(deleteColumn
             ? {transform: 'translateY(100%)', opacity: 0}
             : {transform: 'translateY(0%)', opacity: 1})
         }}>
-            <h2>{column}</h2>
-            <h5 className='deleteColumnBtn' onClick={() => (setDeleteColumn(true), handleDeleteColumn())}>Delete {column}</h5>
+             {editableColumnTitle ? (
+                            <input type='text'
+                                value={column.title}
+                                onChange={(e) => dispatch(updateColumnName({prevColumnName: column, newColumnName: e.target.value}))}
+                                autoFocus
+                                onBlur={() => setEditableColumnTitle(false)}
+                            />
+                        ) : (
+                            <h2 onDoubleClick={() => setEditableColumnTitle(true)}>{column.title}</h2>
+                        )}
+            <h5 className='deleteColumnBtn' onClick={() => (setDeleteColumn(true), handleDeleteColumn(column.id))}>Delete {column.title}</h5>
             <div className='columnWrapper' style={{gap: gap ? gap + 'px' : '20px'}}>
                 {filterTasks ?
                 tasks.map(task => (task.columnName === column && task.assignees.some(assignee => assignee.email === chosenAssignee.email)) &&
@@ -73,7 +83,7 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
 }
 
 Column.propTypes = {
-    column: propTypes.string,
+    // column: propTypes.string,
     tasks: propTypes.array,
     handleMouseDown: propTypes.func
 }

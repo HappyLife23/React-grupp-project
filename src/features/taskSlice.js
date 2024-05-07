@@ -11,13 +11,13 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state, action) => {
-      const { title, content, endDate, columnName, assignees, priority } = action.payload;
+      const { title, content, endDate, startDate, columnName, assignees, priority } = action.payload;
       const newTask = {
         id: nanoid(),
         title: title,
         content: content,
         columnName: columnName,
-        startDate: new Date().toLocaleDateString(),
+        startDate: startDate,
         endDate: endDate,
         assignees: assignees,
         priority: priority,
@@ -30,8 +30,8 @@ const taskSlice = createSlice({
       state.tasks = state.tasks.filter(task => task.id !== action.payload);
       localStorage.setItem('items', JSON.stringify(state.tasks));
     },
-    updateTask: (state, {payload: { id, title, content, endDate }}) => {
-      state.tasks = state.tasks.map(task => task.id === id ? {...task, title, content, endDate} : task);
+    updateTask: (state, {payload: { id, title, content, endDate, startDate }}) => {
+      state.tasks = state.tasks.map(task => task.id === id ? {...task, title, content, endDate, startDate} : task);
       localStorage.setItem('items', JSON.stringify(state.tasks));
     },
     handleFilterTasks: (state, action) => {

@@ -11,6 +11,7 @@ const Home = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState('');
   const [columnName, setColumnName] = useState('');
   const [assignees, setAssignees] = useState([]);
   const [priority, setPriority] = useState('');
@@ -37,6 +38,7 @@ const Home = () => {
     const newTask = {
       title: title,
       content: content,
+      startDate: startDate,
       endDate: endDate,
       columnName: columnName,
       assignees: assignees,
@@ -97,11 +99,18 @@ const Home = () => {
           <div>
             <p style={content ? {transform: 'translate(2px, -70%) scale(0.8)'} : {transform: 'translate(12px, 50%) scale(1)'}}>Task Content</p>
             <textarea value={content} onChange={e => setContent(e.target.value)}></textarea>
-          </div>
-          <div>
-            <p style={endDate ? {transform: 'translate(2px, -70%) scale(0.8)'} : {transform: 'translate(12px, 50%) scale(1)'}}>Task EndDate</p>
-            <input type="text" value={endDate} onChange={e => setEndDate(e.target.value)} />
-          </div>
+            </div>
+            <div>
+              {/* Ändrat så man väljer datum ur kalendern + styling*/}
+              <p style={{ transform: 'translate(12px, -7px) scale(1)' }}>Start date</p>
+              <input type="date" onChange={e => setStartDate(e.target.value)} />
+            </div>
+            <div>
+              {/* Ändrat så man väljer datum ur kalendern + styling*/}
+            <p style={{transform: 'translate(12px, -7px) scale(1)'}}>Task end date</p>
+            <input type="date"  onChange={e => setEndDate(e.target.value)} />
+            </div>
+            
           <div>
             <p style={columnName ? {transform: 'translate(2px, -70%) scale(0.8)'} : {transform: 'translate(12px, 50%) scale(1)'}}>Column Name</p>
             <input type="text" value={columnName} onChange={() => {}} />

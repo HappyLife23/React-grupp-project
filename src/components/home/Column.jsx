@@ -6,7 +6,7 @@ import Task from "./Task";
 
 const Column = ({ column, tasks,  handleMouseDown }) => {
     const [deleteColumn, setDeleteColumn] = useState(false);
-    const [editableColumnTitle, setEditableColumnTitle] = useState(false);
+    const [editableColumnTitle, setEditableColumnTitle] = useState(null);
     const dispatch = useDispatch();
     // Stored style by settings
     const style = useSelector(state => state.settings.tasks);
@@ -59,15 +59,15 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
             ? {transform: 'translateY(100%)', opacity: 0}
             : {transform: 'translateY(0%)', opacity: 1})
         }}>
-             {editableColumnTitle ? (
+             {editableColumnTitle === column.id ? (
                             <input type='text'
                                 value={column.title}
-                                onChange={(e) => dispatch(updateColumnName({prevColumnName: column, newColumnName: e.target.value}))}
+                                onChange={(e) => dispatch(updateColumnName({id: column.id, title: e.target.value}))}
                                 autoFocus
-                                onBlur={() => setEditableColumnTitle(false)}
+                                onBlur={() => setEditableColumnTitle(null)}
                             />
                         ) : (
-                            <h2 onDoubleClick={() => setEditableColumnTitle(true)}>{column.title}</h2>
+                            <h2 onDoubleClick={() => setEditableColumnTitle(column.id)}>{column.title}</h2>
                         )}
             <h5 className='deleteColumnBtn' onClick={() => (setDeleteColumn(true), handleDeleteColumn(column.id))}>Delete {column.title}</h5>
             <div className='columnWrapper' style={{gap: gap ? gap + 'px' : '20px'}}>

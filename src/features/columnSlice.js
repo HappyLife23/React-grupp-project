@@ -27,22 +27,23 @@ const columnSlice = createSlice({
             console.log(action.payload)
             const updatedColumns = state.columns.filter(column => column.id != action.payload);
             state.columns == updatedColumns;
-            localStorage.setItem('columns', JSON.stringify(state.columns));
+            localStorage.setItem('columns', JSON.stringify(updatedColumns));
         },
         columnDisplayHandler: (state, action) => {
             state.column = action.payload;
         },
         updateColumnName: (state, action) => {
-            const { prevColumnName, newColumnName } = action.payload;
-            let isUsed = state.columns.some(column => column.toUpperCase() === newColumnName.toUpperCase());
-            if (isUsed || newColumnName.toUpperCase() === 'DONE') {
-                alert(`${newColumnName} column allready exists`);
+            const {id, title} = action.payload;
+            let isUsed = state.columns.some(column => column.title.toUpperCase() === title.toUpperCase());
+            if (isUsed || title.toUpperCase() === 'DONE') {
+                alert(`${title} column allready exists`);
             } else {
-                state.columns = state.columns.map(column => (
-                    column === prevColumnName ? newColumnName : column
-                ))
+                const updatedColumns = state.columns.map(column => (
+                    column.id === id ? {...column, title: action.payload.title } : column
+                ));
+                state.columns = updatedColumns;
+                localStorage.setItem('columns', JSON.stringify(state.columns));
             }
-            localStorage.setItem('columns', JSON.stringify(state.columns));
         }
     }
 });

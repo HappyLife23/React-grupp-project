@@ -34,9 +34,12 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
     }
 
     const handleDeleteColumn = () => {
-        setTimeout(() => {
-            dispatch(deleteColumnHandler(column));
-        }, 300);
+        const isConfirmed = window.confirm("Are you sure you want to delete this column?");
+        if (isConfirmed) {
+            setTimeout(() => {
+                dispatch(deleteColumnHandler(column));
+            }, 300);
+        }
     }
 
     const storedStyle = {

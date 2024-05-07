@@ -56,6 +56,14 @@ const Modal = () => {
         }
     }
 
+    const handleDeleteTask = () => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this task?");
+        if (isConfirmed) {
+            dispatch(removeTask(task.id));
+            dispatch(handleCloseModal(false));
+        }
+    };
+
     return (
         <div id='modal' onKeyDown={e => handleEscapeKey(e)} style={displayModal ? {transform: 'translate(-50%, -50%)', opacity: 1, pointerEvents: 'all'} : {transform: 'translate(-70%, -50%)', opacity: 0, pointerEvents: 'none'}}>
             <div id="closeModal" title='Close' onClick={() => dispatch(handleCloseModal(false))}></div>
@@ -75,7 +83,7 @@ const Modal = () => {
             <div id='modalSettings'>
                 <h4>Task is located in <span>{task.columnName}</span> Column</h4>
                 {!isEdit &&
-                <button onClick={() => (dispatch(removeTask(task.id), dispatch(handleCloseModal(false))))}>Delete</button>}
+                <button onClick={handleDeleteTask} style={{ backgroundColor: 'darkred' }}>Delete</button>}
                 <button onClick={() => handleEditOrUpdate()} style={{width: `${isEdit ? '500' : '200'}px`}}>{isEdit ? 'Save Changes' : 'Edit'}</button>
             </div>
             <div id='modalDate'>

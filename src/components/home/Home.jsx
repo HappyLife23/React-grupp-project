@@ -117,7 +117,7 @@ const Home = () => {
             <select value={columnName} onChange={e => setColumnName(e.target.options[e.target.selectedIndex].value)}>
               <option value={''}>Choose Column</option>
               {columns.map(column =>
-              <option value={column} key={column}>{column}</option>
+              <option value={column.title} key={column.id}>{column.title}</option>
               )}
               <option value={'Done'}>Done</option>
             </select>

@@ -72,11 +72,11 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
             <h5 className='deleteColumnBtn' onClick={() => (setDeleteColumn(true), handleDeleteColumn(column.id))}>Delete {column.title}</h5>
             <div className='columnWrapper' style={{gap: gap ? gap + 'px' : '20px'}}>
                 {filterTasks ?
-                tasks.map(task => (task.columnName === column && task.assignees.some(assignee => assignee.email === chosenAssignee.email)) &&
+                tasks.map(task => (task.columnName === column.title && task.assignees.some(assignee => assignee.email === chosenAssignee.email)) &&
                 <Task key={task.id} taskStyle={taskStyle} task={task} handleMouseDown={handleMouseDown} />
                 )
             :
-                tasks.map(task => task.columnName === column &&
+                tasks.map(task => task.columnName === column.title &&
                 <Task key={task.id} taskStyle={taskStyle} task={task} handleMouseDown={handleMouseDown} />
                 )
             }

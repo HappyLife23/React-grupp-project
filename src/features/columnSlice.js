@@ -24,7 +24,6 @@ const columnSlice = createSlice({
             }
         },
         deleteColumnHandler: (state, action) => {
-            console.log(action.payload)
             const updatedColumns = state.columns.filter(column => column.id != action.payload);
             state.columns == updatedColumns;
             localStorage.setItem('columns', JSON.stringify(updatedColumns));

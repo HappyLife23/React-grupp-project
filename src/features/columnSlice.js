@@ -18,7 +18,7 @@ const columnSlice = createSlice({
         },
         deleteColumnHandler: (state, action) => {
             state.columns = state.columns.filter(column => column != action.payload);
-            localStorage.setItem('columns', JSON.stringify(state.columns));
+            localStorage.removeItem('columns', JSON.stringify(state.columns));
         },
         columnDisplayHandler: (state, action) => {
             state.column = action.payload;

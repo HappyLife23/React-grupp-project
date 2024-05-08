@@ -2,6 +2,7 @@ import { useState } from "react";
 import propTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteColumnHandler } from "../../features/columnSlice";
+import { removeTask } from "../../features/taskSlice";
 import Task from "./Task";
 
 const Column = ({ column, tasks,  handleMouseDown }) => {
@@ -33,8 +34,15 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
         background: taskColor ? taskColor : '#d5d5d5',
     }
 
+    // Här filtreras även kolumnens tasks bort när en kolumn tas bort
     const handleDeleteColumn = () => {
+        const columnTasks = tasks.filter(task => task.columnName === column)
         setTimeout(() => {
+            if(columnTasks){
+                columnTasks.forEach(task => {
+                    dispatch(removeTask(task.id))
+                });
+            }
             dispatch(deleteColumnHandler(column));
         }, 300);
     }

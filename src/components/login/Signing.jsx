@@ -53,11 +53,11 @@ const Signing = () => {
         <div id='signupWrapper' style={signIn ? {left: 0, transform: 'translate(-100%, -50%)'} : {left: '50%', transform: 'translate(-50%, -50%)'}}>
             <h1>Create account</h1>
             <p style={{transform: userName ? 'scale(0.9) translate(7px, -70%)' : 'scale(1) translate(12px, 50%)'}}>Your full name</p>
-            <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
+            <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} required/>
             <p style={{transform: email ? 'scale(0.9) translate(7px, -70%)' : 'scale(1) translate(12px, 50%)'}}>Your email address</p>
-            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
             <p style={{transform: password ? 'scale(0.9) translate(7px, -70%)' : 'scale(1) translate(12px, 50%)'}}>Password</p>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}  required/>
             <p style={{transform: imageUrl ? 'scale(0.9) translate(7px, -70%)' : 'scale(1) translate(12px, 50%)'}}>Image url</p>
             <input type="text" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
             <div style={{display: 'flex', alignItems: 'center'}}>

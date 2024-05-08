@@ -11,6 +11,7 @@ const Modal = () => {
     const [title, setTitle] = useState(task.title || '');
     const [content, setContent] = useState(task.content || '');
     const [endDate, setEndDate] = useState(task.endDate || '');
+    const [startDate, setStartDate] = useState(task.startDate || '');
 
     const handleEscapeKey = (e) => {
         if (e.key === 'Escape') {
@@ -37,24 +38,41 @@ const Modal = () => {
     const handleChangeEndDate = (e) => {
         setEndDate(e.target.value);
     }
+    // lagt till startdate för uppdatering o rendering
+    const handleChangeStartDate = (e) => {
+        setStartDate(e.target.value);
+    }
 
     useEffect(() => {
         setEndDate(task.endDate || '');
     }, [task.endDate]);
+
+    useEffect(() => {
+        setStartDate(task.startDate || '');
+    }, [task.startDate]);
 
     const handleEditOrUpdate = () => {
         if (!isEdit) dispatch(handleEdit(true));
         else {
             const obj = {
                 id: task.id,
-                title: title,
-                content: content,
-                endDate: endDate
+                title,
+                content,
+                endDate,
+                startDate,
             }
             dispatch(updateTask(obj));
             dispatch(handleCloseModal(false))
         }
     }
+
+    const handleDeleteTask = () => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this task?");
+        if (isConfirmed) {
+            dispatch(removeTask(task.id));
+            dispatch(handleCloseModal(false));
+        }
+    };
 
     return (
         <div id='modal' onKeyDown={e => handleEscapeKey(e)} style={displayModal ? {transform: 'translate(-50%, -50%)', opacity: 1, pointerEvents: 'all'} : {transform: 'translate(-70%, -50%)', opacity: 0, pointerEvents: 'none'}}>
@@ -75,14 +93,19 @@ const Modal = () => {
             <div id='modalSettings'>
                 <h4>Task is located in <span>{task.columnName}</span> Column</h4>
                 {!isEdit &&
-                <button onClick={() => (dispatch(removeTask(task.id), dispatch(handleCloseModal(false))))}>Delete</button>}
+                <button onClick={handleDeleteTask} style={{ backgroundColor: 'darkred' }}>Delete</button>}
                 <button onClick={() => handleEditOrUpdate()} style={{width: `${isEdit ? '500' : '200'}px`}}>{isEdit ? 'Save Changes' : 'Edit'}</button>
             </div>
             <div id='modalDate'>
-                <p>Start Date: {task.startDate}</p>
+                <p>Start Date:  <input
+                    type="date"
+                    value={startDate}
+                    style={isEdit ? { border: 'dashed 2px #070', pointerEvents: 'unset' } : { border: 'none', pointerEvents: 'none' }}
+                    onChange={handleChangeStartDate}
+                /></p>
                 <p>End Date: 
                     <input
-                    type="text"
+                    type="date"
                     value={endDate}
                     style={isEdit ? {border: 'dashed 2px #070', pointerEvents: 'unset'} : {border: 'none', pointerEvents: 'none'}}
                     onChange={handleChangeEndDate}

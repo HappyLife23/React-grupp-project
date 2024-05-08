@@ -44,13 +44,12 @@
   text-align: center;
   width: 100%;
 }
-.columnWrapper{
+.columnWrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding-top: 20px;
-  overflow-y: scroll;
-  scrollbar-width: none;
+  overflow-y: auto; 
 }
 .columnWrapper::-webkit-scrollbar{
   display: none;
@@ -88,17 +87,13 @@
 }
 
 /* Task */
-.task{
+.task { 
   position: relative;
   border: solid 1px #005fa8;
   background: #ddd;
   border-radius: 10px;
   padding: 20px;
-  width: 100%;
-  min-width: 355px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  box-sizing: border-box; 
 }
 .taskHeader{
   display: flex;

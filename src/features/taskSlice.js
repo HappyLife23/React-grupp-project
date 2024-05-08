@@ -28,7 +28,7 @@ const taskSlice = createSlice({
     },
     removeTask: (state, action) => {
       state.tasks = state.tasks.filter(task => task.id !== action.payload);
-      localStorage.removeItem('items', JSON.stringify(state.tasks));
+      localStorage.setItem('items', JSON.stringify(state.tasks));
     },
     updateTask: (state, {payload: { id, title, content, endDate, startDate }}) => {
       state.tasks = state.tasks.map(task => task.id === id ? {...task, title, content, endDate, startDate} : task);

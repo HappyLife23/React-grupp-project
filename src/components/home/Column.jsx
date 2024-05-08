@@ -38,16 +38,19 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
     // Här filtreras även kolumnens tasks bort när en kolumn tas bort
     const handleDeleteColumn = (id) => {
         const isConfirmed = window.confirm("Are you sure you want to delete this column?");
-        if (!isConfirmed) return
+        console.log(isConfirmed)
+        if (isConfirmed){
+            setDeleteColumn(true)
             const columnTasks = tasks.filter(task => task.columnName === column)
-        setTimeout(() => {
-                if(columnTasks){
-                columnTasks.forEach(task => {
-                    dispatch(removeTask(task.id))
-                });
-            }
-            dispatch(deleteColumnHandler(id));
-        }, 300);
+            setTimeout(() => {
+                    if(columnTasks){
+                    columnTasks.forEach(task => {
+                        dispatch(removeTask(task.id))
+                    });
+                }
+                dispatch(deleteColumnHandler(id));
+            }, 300);
+        }
     }
 
     const storedStyle = {
@@ -76,7 +79,7 @@ const Column = ({ column, tasks,  handleMouseDown }) => {
                         ) : (
                             <h2 onDoubleClick={() => setEditableColumnTitle(column.id)}>{column.title}</h2>
                         )}
-            <h5 className='deleteColumnBtn' onClick={() => (setDeleteColumn(true), handleDeleteColumn(column.id))}>Delete {column.title}</h5>
+            <h5 className='deleteColumnBtn' onClick={() => handleDeleteColumn(column.id)}>Delete {column.title}</h5>
             <div className='columnWrapper' style={{gap: gap ? gap + 'px' : '20px'}}>
                 {filterTasks ?
                 tasks.map(task => (task.columnName === column.title && task.assignees.some(assignee => assignee.email === chosenAssignee.email)) &&

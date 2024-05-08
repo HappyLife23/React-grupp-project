@@ -1,5 +1,5 @@
 #settingsContainer{
-    z-index: 100;
+    z-index: 70;
     position: absolute;
     top: 0;
     left: 0;
@@ -8,13 +8,7 @@
     overflow: hidden;
     user-select: none;
 }
-.closeSettings{
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 5px;
-    cursor: pointer;
-}
+
 #settingsMenu{
     position: absolute;
     top: 50%;

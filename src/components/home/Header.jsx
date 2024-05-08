@@ -20,6 +20,18 @@ const Header = () => {
     const [signOut, setSignOut] = useState(false);
     const navigate = useNavigate();
     const [activeIndex, setActiveIndex] = useState(null); // håller reda på vilketn column (li-element) man klickat på för att ändra färgen
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const toggleModal = () => {
+        if (isModalOpen) {
+            // Om modalen är öppen, stäng den genom att kalla `handleMenu(false)`
+            dispatch(handleMenu(false));
+        } else {
+            // Om modalen är stängd, öppna den genom att kalla `handleMenu(true)`
+            dispatch(handleMenu(true));
+        }
+        setIsModalOpen(!isModalOpen);
+    }
 
     const tasks = useSelector(state => state.tasks.tasks);
     let done = 0;
@@ -108,7 +120,7 @@ const Header = () => {
                     <NavLink to='/admin'>
                         <p style={headerTextStyle}>Admin <i className="fas fa-users-cog"></i></p>
                     </NavLink>
-                    <div id="navSetting" title='Settings' onClick={() => dispatch(handleMenu(true))}>
+                    <div id="navSetting" title='Settings' onClick={toggleModal}>
                         <div></div>
                         <div></div>
                         <div></div>

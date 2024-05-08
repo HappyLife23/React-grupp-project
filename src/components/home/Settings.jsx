@@ -17,7 +17,6 @@ const Settings = () => {
     return (
         <div id='settingsContainer' style={{pointerEvents: menu ? 'unset' : 'none'}}>
             <div id="settingsMenu" style={{transform: `translate(${menu ? 0 : 100}%, -50%)`}}>
-                <p title='Close Settings' className='closeSettings' onClick={() => dispatch((handleMenu(false)))}>X</p>
                 {/* Header */}
                 <div className="headerSettings">
                     <div className="settingHeader" onClick={() => (setHeader(!header), setTasks(false), setBoards(false), setGallery(false))}>
